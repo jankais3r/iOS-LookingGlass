@@ -6,8 +6,6 @@ import objc_util
 
 # Check out https://github.com/jankais3r/HoloSkype for an example project
 url = 'http://192.168.1.75:9090/holo.html'
-LG_width = 2560
-LG_height = 1600
 
 @objc_util.on_main_thread
 def main():
@@ -24,7 +22,7 @@ def main():
 		second_window.setScreen(second_screen)
 		second_window.makeKeyAndVisible()
 		
-		wk = objc_util.ObjCClass('WKWebView').alloc().initWithFrame_(objc_util.CGRect((0, 0), (LG_width, LG_height - 1))).autorelease()
+		wk = objc_util.ObjCClass('WKWebView').alloc().initWithFrame_(objc_util.CGRect((0, 0), (second_screen.bounds().size.width, second_screen.bounds().size.height - 1))).autorelease()
 		
 		second_window.addSubview(wk)
 		
@@ -58,6 +56,6 @@ try:
 	# If you are rendering a complex Three.js scene and the hologram doesn't look right, try increasing the sleep timer.
 	# This is a hack around a webkit bug. The window needs to be resized once the rendering completes in order to apply correct shader values.
 	time.sleep(3)
-	wk.setFrame_(objc_util.CGRect((0, 0), (LG_width, LG_height)))
+	wk.setFrame_(CGRect((0, 0), (second_screen.bounds().size.width, second_screen.bounds().size.height)))
 except:
 	pass
